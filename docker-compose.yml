@@ -3,16 +3,16 @@ services:
     image: postgres:16-alpine
     container_name: noxwe_postgres
     environment:
-      POSTGRES_DB: noxwe_db
-      POSTGRES_USER: noxwe_user
-      POSTGRES_PASSWORD: devprodnoxwesaas
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U noxwe_user -d noxwe_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 10s
       timeout: 5s
       retries: 5
